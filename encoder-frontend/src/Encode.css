@@ -1,0 +1,95 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.toggle {
+  border-radius: 500px;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+
+.form {
+  /* background: pink; */
+  width: 700px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 1.2em;
+}
+
+.pwRow {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  /* background-color: red; */
+  margin-bottom: 80px;
+}
+
+.pwRow > input {
+  text-indent: 5px;
+  border-radius: 10px;
+  height: 30px;
+  margin-top: 15px;
+  border: none;
+}
+
+label {
+  text-align: left;
+}
+
+.msgRow {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  /* background-color: green; */
+  margin-bottom: 80px;
+}
+
+.msgRow > textarea {
+  margin-top: 15px;
+  min-height: 200px;
+  padding: 5px;
+  border-radius: 10px;
+  border: solid 1px transparent;
+  resize: none;
+}
+
+p {
+  min-height: 200px;
+  max-height: 350px;
+  overflow-y: scroll;
+  text-align: left;
+  background-color: #3b3b3b;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+.enUGC:focus {
+  outline: solid 1px rgba(23, 190, 187, 0.7);
+}
+.enUGC:focus {
+  outline: solid 1px rgba(23, 190, 187, 0.7);
+}
+
+.deUGC:focus {
+  outline: solid 1px rgba(237, 184, 139, 0.7);
+}
+.deUGC:focus {
+  outline: solid 1px rgba(237, 184, 139, 0.7);
+}
+
+.deHeader {
+  color: rgb(205, 83, 52);
+}
+
+.enHeader {
+  color: rgba(23, 190, 187, 1);
+}

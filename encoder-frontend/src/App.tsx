@@ -1,13 +1,10 @@
 import { Suspense, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Encode from "./Encode";
 import Message from "./Message";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [page, setPage] = useState<string>("main");
   const [type, setType] = useState<string>("");
   const navigate = useNavigate();
@@ -33,8 +30,12 @@ function App() {
               path="/"
               element={
                 <div className="center">
-                  <div className="block en" onClick={handleClickEncode}>ENCODE A MESSAGE</div>
-                  <div className="block de" onClick={handleClickDecode}>DECODE A MESSAGE</div>
+                  <div className="block en" onClick={handleClickEncode}>
+                    ENCODE A MESSAGE
+                  </div>
+                  <div className="block de" onClick={handleClickDecode}>
+                    DECODE A MESSAGE
+                  </div>
                 </div>
               }
             ></Route>
@@ -42,13 +43,25 @@ function App() {
           {page === "create" && (
             <Route
               path="/create"
-              element={<Encode type={type} setPage={setPage}></Encode>}
+              element={
+                <Encode
+                  type={type}
+                  setType={setType}
+                  setPage={setPage}
+                ></Encode>
+              }
             ></Route>
           )}
           {page === "message" && (
             <Route
               path="/message"
-              element={<Message type={type} setPage={setPage}></Message>}
+              element={
+                <Message
+                  type={type}
+                  setType={setType}
+                  setPage={setPage}
+                ></Message>
+              }
             ></Route>
           )}
         </Routes>
