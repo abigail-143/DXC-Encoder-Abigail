@@ -13,6 +13,7 @@ const Encode = (props: props) => {
   const type = props.type;
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const fetchData = useFetch();
 
   const handleToggle = () => {
     if (type === "decode") {
@@ -48,6 +49,9 @@ const Encode = (props: props) => {
           <input
             className={`${type === "decode" ? "deUGC" : "enUGC"}`}
             placeholder="e.g. cats4lyfe"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
           ></input>
         </div>
         <div className="msgRow">
@@ -55,6 +59,9 @@ const Encode = (props: props) => {
           <textarea
             className={`${type === "decode" ? "deUGC" : "enUGC"}`}
             placeholder="e.g. I LOVE CATS!"
+            onChange={(event) => {
+              setMessage(event.target.value);
+            }}
           ></textarea>
         </div>
         <button
