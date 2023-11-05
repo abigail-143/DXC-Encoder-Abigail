@@ -4,6 +4,7 @@ import com.dxc.encodeDecode.model.CharacterModel;
 import com.dxc.encodeDecode.model.MessageModel;
 import com.dxc.encodeDecode.repository.CharacterRepository;
 import com.dxc.encodeDecode.service.EncodeMessage;
+import com.dxc.encodeDecode.service.ResponseModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class MessageController {
     }
 
     // get? encode data
-    @GetMapping("/encode")
+    @PostMapping("/encode")
     public ResponseEntity<?> encode(@RequestBody MessageModel messageModel) {
         String message = messageModel.getMessage().toUpperCase();
         String password = messageModel.getPassword();
@@ -41,12 +42,13 @@ public class MessageController {
         int[] messageIndex = encodeMessage.messageIndex(message);
         int[] newMessageIndex = encodeMessage.newMessageIndex(messageIndex, shiftKey);
         String encodedMessage = encodeMessage.encodedMessage(newMessageIndex);
+        ResponseModel responseModel = new ResponseModel(encodedMessage);
 
-        return ResponseEntity.ok(encodedMessage);
+        return ResponseEntity.ok(responseModel);
     }
 
     // get? decode data
-    @GetMapping("/decode")
+    @PostMapping("/decode")
     public ResponseEntity<?> decode(@RequestBody MessageModel messageModel) {
         String message = messageModel.getMessage().toUpperCase();
         String password = messageModel.getPassword();
@@ -54,7 +56,8 @@ public class MessageController {
         int[] messageIndex = encodeMessage.messageIndex(message);
         int[] oldMessageIndex = encodeMessage.oldMessageIndex(messageIndex, shiftKey);
         String decodedMessage = encodeMessage.encodedMessage(oldMessageIndex);
+        ResponseModel responseModel = new ResponseModel(decodedMessage);
 
-        return ResponseEntity.ok(decodedMessage);
+        return ResponseEntity.ok(responseModel);
     }
 }
