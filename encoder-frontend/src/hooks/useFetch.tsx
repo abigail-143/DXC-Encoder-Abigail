@@ -35,5 +35,9 @@ const useFetch = () => {
         returnValue = { ok: false, data: "An error has occured" };
       }
     }
+    return returnValue;
   };
+  return fetchData;
 };
+
+export default useFetch;

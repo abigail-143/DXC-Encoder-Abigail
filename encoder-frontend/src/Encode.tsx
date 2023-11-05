@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./Encode.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import useFetch from "./hooks/useFetch";
+import MessageContext from "./context/message";
 
 interface props {
   type: string;
@@ -11,9 +13,51 @@ interface props {
 const Encode = (props: props) => {
   const navigate = useNavigate();
   const type = props.type;
+  const context = useContext(MessageContext);
+  const fetchData = useFetch();
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const fetchData = useFetch();
+
+  const handleClick = async () => {
+    if (type === "encode") {
+      try {
+        const res = await fetchData("/encode", "POST", { password, message });
+
+        if (res.ok) {
+          console.log(res.data);
+          context?.setSecretMessage(res.data.secretMessage);
+
+          if (context?.secretMessage != null) {
+            props.setPage("message");
+            navigate("/message");
+          }
+        } else {
+          console.log(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (type === "decode") {
+      try {
+        const res = await fetchData("/decode", "POST", { password, message });
+
+        if (res.ok) {
+          console.log(res.data);
+          context?.setSecretMessage(res.data.secretMessage);
+
+          if (context?.secretMessage != null) {
+            props.setPage("message");
+            navigate("/message");
+          }
+        } else {
+          console.log(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const handleToggle = () => {
     if (type === "decode") {
@@ -27,10 +71,6 @@ const Encode = (props: props) => {
     navigate("/create");
   };
 
-  const handleClick = () => {
-    props.setPage("message");
-    navigate("/message");
-  };
   return (
     <>
       <button

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Encode.css";
+import { useContext } from "react";
+import MessageContext from "./context/message";
 
 interface props {
   type: string;
@@ -9,8 +11,9 @@ interface props {
 
 const Message = (props: props) => {
   const type: string = props.type;
+  const context = useContext(MessageContext);
   const navigate = useNavigate();
-  
+
   const handleToggle = () => {
     if (type === "decode") {
       props.setType("encode");
@@ -29,7 +32,6 @@ const Message = (props: props) => {
   };
   return (
     <>
-      {/* this is a ternary, depends on whether it's encoding/decoding */}
       <button
         onClick={handleToggle}
         className={`toggle ${type === "decode" ? "en" : "de"}`}
@@ -37,10 +39,9 @@ const Message = (props: props) => {
         {type === "decode" ? "Encode" : "Decode"}
       </button>
       <div className="form">
-        {/* this is a ternary, depends on whether it's encoding/decoding */}
         <div className="headerRow">
           <h1 className={`${type === "decode" ? "deHeader" : "enHeader"}`}>
-            {type === "decode" ? "Decoded" : "Encoded"}
+            {type === "decode" ? "DECODED" : "ENCODED"}
           </h1>
         </div>
         <div className="msgRow">
@@ -49,19 +50,8 @@ const Message = (props: props) => {
               ? "Here's your secret mission."
               : "Your secret's safe."}
           </label>
-          <p className="msg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            viverra tristique porta. Praesent lobortis ac sapien ac rutrum. Nam
-            quis metus justo. Ut varius eu ligula gravida consectetur. Phasellus
-            vestibulum, arcu a elementum pharetra, mi felis lacinia ligula, eget
-            aliquam lacus lacus sed felis. Sed facilisis felis porta, eleifend
-            nisi sit amet, euismod se. Nunc ipsum est, lacinia vehicula dui ac,
-            convallis euismod tortor. Integer cursus dignissim auctor. Nunc
-            aliquet neque et condimentum faucibus. Donec enim dolor, condimentum
-            vel venenatis ac, tincidunt id orci.
-          </p>
+          <p className="msg">{context?.secretMessage}</p>
         </div>
-        {/* this is a ternary depends on whether it's encoding/decoding */}
         <button
           className={`${type === "decode" ? "de" : "en"}`}
           onClick={handleClick}
