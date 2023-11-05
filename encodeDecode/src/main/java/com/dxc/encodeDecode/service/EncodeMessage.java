@@ -11,20 +11,33 @@ import java.util.Optional;
 @Service
 public class EncodeMessage {
 
-    @Autowired
+
     private CharacterModel characterModel;
     public EncodeMessage(CharacterModel characterModel) {
         this.characterModel = characterModel;
     }
+
     @Autowired
     private CharacterRepository characterRepository;
     public EncodeMessage(CharacterRepository characterRepository) {
         this.characterRepository = characterRepository;
     }
 
-    private Long totalCount;
-    public EncodeMessage(Long totalCount) {
-        this.totalCount = totalCount;
+    final int totalCount = 45;
+
+    private String response;
+    private String encodedMessage;
+
+    public EncodeMessage(String response, String encodedMessage) {
+        this.response = response;
+        this.encodedMessage = encodedMessage;
+    }
+
+    public EncodeMessage(String response) {
+        this.response = response;
+    }
+
+    public EncodeMessage() {
     }
 
     // get the shift key first
@@ -33,10 +46,10 @@ public class EncodeMessage {
             // check password input
             int shiftKey = password.length();
             if (shiftKey > totalCount) {
-                System.out.println("pw length > total count")
+                System.out.println("pw length > total count");
                 int newShiftKey = Math.toIntExact(shiftKey % totalCount);
                 if (newShiftKey == 0) {
-                    System.out.println("% is 0")
+                    System.out.println("% is 0");
                     shiftKey = 1;
                     System.out.println(shiftKey);
                     return shiftKey;
@@ -61,7 +74,7 @@ public class EncodeMessage {
         }
     }
 
-    // get message indexes
+    // get message indexes, works with spaces and special symbols and numbers
     public int[] messageIndex(String message) {
        char[] messageArray = message.toCharArray();
        int[] indexArray = new int[messageArray.length];
@@ -85,7 +98,7 @@ public class EncodeMessage {
         for (int i = 0; i < messageIndex.length; i++) {
             int newIndex = messageIndex[i] + shiftKey;
             if (newIndex > totalCount) {
-                newIndex = (int) (newIndex - totalCount);
+                newIndex = newIndex - totalCount;
                 newMessageIndex[i] = newIndex;
             }
             newMessageIndex[i] = newIndex;
@@ -94,6 +107,21 @@ public class EncodeMessage {
         return newMessageIndex;
     }
 
+    public int[] oldMessageIndex(int[] messageIndex, int shiftKey) {
+        int[] oldMessageIndex = new int[messageIndex.length];
+        for (int i = 0; i < messageIndex.length; i++) {
+            int oldIndex = messageIndex[i] - shiftKey;
+            if (oldIndex < 0) {
+                oldIndex = oldIndex + totalCount;
+                oldMessageIndex[i] = oldIndex;
+            }
+            oldMessageIndex[i] = oldIndex;
+        }
+        System.out.println(Arrays.toString(oldMessageIndex));
+        return oldMessageIndex;
+    }
+
+    // get new encode message
     public String encodedMessage(int[] newMessageIndex) {
         char[] newMessageArray = new char[newMessageIndex.length];
         for (int i = 0; i < newMessageArray.length; i++) {
@@ -107,8 +135,6 @@ public class EncodeMessage {
                 return index.toString();
             }
         }
-        return Arrays.toString(newMessageArray);
+        return String.valueOf(newMessageArray);
     }
-
-
 }
