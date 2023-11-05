@@ -32,10 +32,10 @@ function App() {
             <Route
               path="/"
               element={
-                <>
-                  <div onClick={handleClickEncode}>ENCODE A MESSAGE</div>
-                  <div onClick={handleClickDecode}>DECODE A MESSAGE</div>
-                </>
+                <div className="center">
+                  <div className="block en" onClick={handleClickEncode}>ENCODE A MESSAGE</div>
+                  <div className="block de" onClick={handleClickDecode}>DECODE A MESSAGE</div>
+                </div>
               }
             ></Route>
           )}
