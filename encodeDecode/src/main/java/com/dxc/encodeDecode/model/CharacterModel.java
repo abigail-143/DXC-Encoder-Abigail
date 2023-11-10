@@ -2,6 +2,7 @@ package com.dxc.encodeDecode.model;
 
 import jakarta.persistence.*;
 
+// create a character table that holds the list of characters and a corresponding index
 @Entity
 @Table(name = "character_list")
 public class CharacterModel {

@@ -45,9 +45,11 @@ public class EncodeMessage {
         try {
             // check password input
             int shiftKey = password.length();
+            // if the password length is longer than the total character count, need to loop back to the start of the character list
             if (shiftKey > totalCount) {
                 System.out.println("pw length > total count");
                 int newShiftKey = Math.toIntExact(shiftKey % totalCount);
+                // if the user's password technically doesn't have a "shift" then we'll just assign the shift as 1
                 if (newShiftKey == 0) {
                     System.out.println("% is 0");
                     shiftKey = 1;
@@ -58,9 +60,10 @@ public class EncodeMessage {
                     shiftKey = newShiftKey;
                     System.out.println(shiftKey);
                     return shiftKey;
-
                 }
             }
+
+            // actually this can be accounted for in the if loop above
             if (shiftKey == totalCount) {
                 System.out.println("pw length = total count");
                 shiftKey = 1;
@@ -107,6 +110,7 @@ public class EncodeMessage {
         return newMessageIndex;
     }
 
+    // get shifted indexes for decoding
     public int[] oldMessageIndex(int[] messageIndex, int shiftKey) {
         int[] oldMessageIndex = new int[messageIndex.length];
         for (int i = 0; i < messageIndex.length; i++) {

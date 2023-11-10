@@ -2,6 +2,7 @@ package com.dxc.encodeDecode.service;
 
 import org.springframework.stereotype.Service;
 
+// to return information as json data
 @Service
 public class ResponseModel {
     private String response;
