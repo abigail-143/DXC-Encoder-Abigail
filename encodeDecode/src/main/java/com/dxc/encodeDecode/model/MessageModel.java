@@ -1,5 +1,6 @@
 package com.dxc.encodeDecode.model;
 
+// to get user generated content as a request body
 public class MessageModel {
     private String password;
     private String message;
