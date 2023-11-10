@@ -1,5 +1,5 @@
 <a name="readme-top"></a>
-# DXC-Encoder-Abigail
+# Encoder using Java
 
 ## Table of Contents
 1. [Introduction](#intro)
